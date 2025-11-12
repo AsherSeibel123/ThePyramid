@@ -2,13 +2,140 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>THE PYRAMID</title>
-  <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="center-content">
-    <h1>THE PYRAMID</h1>
+  <div class="scene" id="scene">
+    <!-- Top Hieroglyphics Border -->
+    <div class="hieroglyphics top" id="hieroglyphicsTop"></div>
+
+    <!-- Sun -->
+    <div class="sun" id="sun"></div>
+
+    <!-- Stars -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Sand Dunes in Background -->
+    <div class="dune dune1"></div>
+    <div class="dune dune2"></div>
+    <div class="dune dune3"></div>
+
+    <!-- Desert Ground -->
+    <div class="ground" id="ground"></div>
+
+    <!-- UFO with green beam -->
+    <div class="ufo" id="ufo">
+      <div class="ufo-dome"></div>
+      <div class="ufo-body">
+        <div class="ufo-lights">
+          <div class="ufo-light"></div>
+          <div class="ufo-light"></div>
+          <div class="ufo-light"></div>
+        </div>
+      </div>
+      <div class="ufo-beam" id="ufoBeam"></div>
+    </div>
+
+    <!-- Disco Ball -->
+    <div class="disco-ball" id="discoBall"></div>
+
+    <!-- Rave Lights -->
+    <div class="rave-lights" id="raveLights">
+      <div class="rave-light"></div>
+      <div class="rave-light"></div>
+      <div class="rave-light"></div>
+      <div class="rave-light"></div>
+    </div>
+
+    <!-- Egyptian Gods Stick Figures -->
+    <div class="gods" id="gods">
+      <!-- Anubis with jackal head crown -->
+      <svg class="god god-anubis" viewBox="0 0 60 100">
+        <!-- Head with tall pointed ears -->
+        <circle cx="30" cy="15" r="8"/>
+        <line x1="22" y1="10" x2="20" y2="2"/>
+        <line x1="20" y1="2" x2="24" y2="2"/>
+        <line x1="38" y1="10" x2="40" y2="2"/>
+        <line x1="40" y1="2" x2="36" y2="2"/>
+        <!-- Body -->
+        <line x1="30" y1="23" x2="30" y2="60"/>
+        <!-- Arms -->
+        <line x1="30" y1="35" x2="15" y2="45"/>
+        <line x1="30" y1="35" x2="45" y2="45"/>
+        <!-- Legs -->
+        <line x1="30" y1="60" x2="20" y2="90"/>
+        <line x1="30" y1="60" x2="40" y2="90"/>
+      </svg>
+
+      <!-- Horus with falcon crown -->
+      <svg class="god god-horus" viewBox="0 0 60 100">
+        <!-- Head with falcon crown -->
+        <circle cx="30" cy="15" r="8"/>
+        <polyline points="25,8 30,2 35,8" fill="none"/>
+        <line x1="30" y1="2" x2="30" y2="6"/>
+        <!-- Body -->
+        <line x1="30" y1="23" x2="30" y2="60"/>
+        <!-- Arms raised -->
+        <line x1="30" y1="35" x2="15" y2="25"/>
+        <line x1="30" y1="35" x2="45" y2="25"/>
+        <!-- Legs -->
+        <line x1="30" y1="60" x2="20" y2="90"/>
+        <line x1="30" y1="60" x2="40" y2="90"/>
+      </svg>
+
+      <!-- Ra with sun disk crown -->
+      <svg class="god god-ra" viewBox="0 0 60 100">
+        <!-- Head with sun disk -->
+        <circle cx="30" cy="15" r="8"/>
+        <circle cx="30" cy="5" r="6" fill="none"/>
+        <!-- Body -->
+        <line x1="30" y1="23" x2="30" y2="60"/>
+        <!-- Arms -->
+        <line x1="30" y1="35" x2="18" y2="40"/>
+        <line x1="30" y1="35" x2="42" y2="40"/>
+        <!-- Legs -->
+        <line x1="30" y1="60" x2="22" y2="90"/>
+        <line x1="30" y1="60" x2="38" y2="90"/>
+      </svg>
+
+      <!-- Scepter holder with was staff -->
+      <svg class="god god-scepter" viewBox="0 0 60 100">
+        <!-- Head with striped crown -->
+        <circle cx="30" cy="15" r="8"/>
+        <rect x="24" y="4" width="12" height="8" fill="none"/>
+        <line x1="24" y1="7" x2="36" y2="7"/>
+        <!-- Body -->
+        <line x1="30" y1="23" x2="30" y2="60"/>
+        <!-- Arms - one holding staff -->
+        <line x1="30" y1="35" x2="20" y2="35"/>
+        <line x1="20" y1="25" x2="20" y2="70"/>
+        <line x1="30" y1="35" x2="40" y2="45"/>
+        <!-- Legs -->
+        <line x1="30" y1="60" x2="25" y2="90"/>
+        <line x1="30" y1="60" x2="35" y2="90"/>
+      </svg>
+    </div>
+
+    <!-- Pyramid -->
+    <div class="pyramid-container">
+      <div class="pyramid-left"></div>
+      <div class="pyramid-right"></div>
+      <div class="pyramid-ridge"></div>
+      <div class="pyramid-cap"></div>
+      <div class="pyramid-entrance"></div>
+    </div>
+
+    <!-- Title with ripple effect -->
+    <h1 class="title" id="title"><span>T</span><span>H</span><span>E</span><span>P</span><span>Y</span><span>R</span><span>A</span><span>M</span><span>I</span><span>D</span></h1>
+
+    <!-- Bottom Hieroglyphics Border -->
+    <div class="hieroglyphics bottom" id="hieroglyphicsBottom"></div>
   </div>
+
+  <button class="control" id="controlBtn">DAY</button>
+
+  <script src="script.js"></script>
 </body>
 </html>
