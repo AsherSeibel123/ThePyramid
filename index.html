@@ -1,141 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>THE PYRAMID</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sky: #87ceeb;
+      --dusk: #4f6ea9;
+      --sand: #f2d16b;
+      --pyramid: #c9a24c;
+      --pyramid-dark: #b08a3a;
+      --beam: rgba(0, 255, 0, 0.25);
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      overflow: hidden;
+      background: linear-gradient(180deg, var(--sky) 0%, #bfe9ff 50%, var(--sand) 50.1%);
+    }
+    .stage {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+    /* Center title */
+    .title {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      pointer-events: none;
+      text-align: center;
+    }
+    .title h1 {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(48px, 12vw, 160px);
+      letter-spacing: 0.06em;
+      line-height: 1;
+      margin: 0;
+      color: #111;
+      text-shadow: 0 4px 0 #fff, 0 12px 24px rgba(0,0,0,0.35);
+      mix-blend-mode: multiply;
+    }
+
+    /* Disco ball */
+    .disco {
+      position: absolute;
+      top: 4vh;
+      left: 8vw;
+      width: min(12vw, 140px);
+      aspect-ratio: 1/1;
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,0.25));
+      animation: sway 5s ease-in-out infinite alternate;
+    }
+    @keyframes sway {
+      from { transform: rotate(-6deg); }
+      to   { transform: rotate(6deg); }
+    }
+    .sparkle {
+      position: absolute; inset: 0; pointer-events: none;
+      background: conic-gradient(from 0deg, rgba(255,255,255,.0), rgba(255,255,255,.7), rgba(255,255,255,.0) 20%);
+      mask: radial-gradient(circle at 50% 50%, black 40%, transparent 41%);
+      animation: spin 6s linear infinite;
+      mix-blend-mode: screen;
+      border-radius: 50%;
+    }
+    @keyframes spin { to { transform: rotate(1turn); } }
+
+    /* SVG scene container */
+    svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Simple sparkle stars */
+    .star { animation: twinkle 3.5s ease-in-out infinite; opacity: .9; }
+    .star:nth-child(odd) { animation-duration: 5.2s; }
+    @keyframes twinkle { 0%,100% { opacity: .2 } 50% { opacity: 1 } }
+
+    /* UFO gentle bob */
+    #ufo { animation: bob 3.5s ease-in-out infinite; transform-origin: center; }
+    @keyframes bob {
+      0%,100% { transform: translateY(0px) }
+      50% { transform: translateY(-8px) }
+    }
+
+    /* Responsive note for very small screens */
+    @media (max-height: 480px) {
+      .title h1 { font-size: clamp(36px, 10vw, 100px); }
+    }
+  </style>
 </head>
 <body>
-  <div class="scene" id="scene">
-    <!-- Top Hieroglyphics Border -->
-    <div class="hieroglyphics top" id="hieroglyphicsTop"></div>
-
-    <!-- Sun -->
-    <div class="sun" id="sun"></div>
-
-    <!-- Stars -->
-    <div class="stars" id="stars"></div>
-
-    <!-- Sand Dunes in Background -->
-    <div class="dune dune1"></div>
-    <div class="dune dune2"></div>
-    <div class="dune dune3"></div>
-
-    <!-- Desert Ground -->
-    <div class="ground" id="ground"></div>
-
-    <!-- UFO with green beam -->
-    <div class="ufo" id="ufo">
-      <div class="ufo-dome"></div>
-      <div class="ufo-body">
-        <div class="ufo-lights">
-          <div class="ufo-light"></div>
-          <div class="ufo-light"></div>
-          <div class="ufo-light"></div>
-        </div>
-      </div>
-      <div class="ufo-beam" id="ufoBeam"></div>
-    </div>
-
+  <div class="stage">
     <!-- Disco Ball -->
-    <div class="disco-ball" id="discoBall"></div>
-
-    <!-- Rave Lights -->
-    <div class="rave-lights" id="raveLights">
-      <div class="rave-light"></div>
-      <div class="rave-light"></div>
-      <div class="rave-light"></div>
-      <div class="rave-light"></div>
+    <div class="disco">
+      <svg viewBox="0 0 100 120" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <defs>
+          <linearGradient id="discoGlow" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="50%" stop-color="#e0e0e0"/>
+            <stop offset="100%" stop-color="#c8c8c8"/>
+          </linearGradient>
+        </defs>
+        <line x1="50" y1="0" x2="50" y2="10" stroke="#555" stroke-width="2" />
+        <circle cx="50" cy="60" r="40" fill="url(#discoGlow)" stroke="#999" stroke-width="1" />
+        <!-- grid -->
+        <g stroke="#bbb" stroke-width="1">
+          <!-- verticals -->
+          <path d="M50,20 V100"/>
+          <path d="M35,22 V98"/>
+          <path d="M65,22 V98"/>
+          <path d="M20,32 V88"/>
+          <path d="M80,32 V88"/>
+          <!-- horizontals -->
+          <path d="M15,55 H85"/>
+          <path d="M20,40 H80"/>
+          <path d="M20,80 H80"/>
+          <path d="M30,30 H70"/>
+          <path d="M30,90 H70"/>
+        </g>
+      </svg>
+      <div class="sparkle"></div>
     </div>
 
-    <!-- Egyptian Gods Stick Figures -->
-    <div class="gods" id="gods">
-      <!-- Anubis with jackal head crown -->
-      <svg class="god god-anubis" viewBox="0 0 60 100">
-        <!-- Head with tall pointed ears -->
-        <circle cx="30" cy="15" r="8"/>
-        <line x1="22" y1="10" x2="20" y2="2"/>
-        <line x1="20" y1="2" x2="24" y2="2"/>
-        <line x1="38" y1="10" x2="40" y2="2"/>
-        <line x1="40" y1="2" x2="36" y2="2"/>
-        <!-- Body -->
-        <line x1="30" y1="23" x2="30" y2="60"/>
-        <!-- Arms -->
-        <line x1="30" y1="35" x2="15" y2="45"/>
-        <line x1="30" y1="35" x2="45" y2="45"/>
-        <!-- Legs -->
-        <line x1="30" y1="60" x2="20" y2="90"/>
-        <line x1="30" y1="60" x2="40" y2="90"/>
-      </svg>
+    <!-- Main Scene (SVG) -->
+    <svg viewBox="0 0 1000 600" role="img" aria-label="Pyramid on sand with stick-figure Egyptian gods, disco ball, and UFO with green beam">
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#87ceeb"/>
+          <stop offset="50%" stop-color="#bfe9ff"/>
+        </linearGradient>
+        <linearGradient id="sandGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#f7db7b"/>
+          <stop offset="100%" stop-color="#e7c25f"/>
+        </linearGradient>
+        <linearGradient id="beamGrad" x1="0.5" y1="0" x2="0.5" y2="1">
+          <stop offset="0%" stop-color="rgba(0,255,0,0.45)"/>
+          <stop offset="100%" stop-color="rgba(0,255,0,0.05)"/>
+        </linearGradient>
+        <linearGradient id="pyrFace" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#d1ad57"/>
+          <stop offset="100%" stop-color="#b38a39"/>
+        </linearGradient>
+      </defs>
 
-      <!-- Horus with falcon crown -->
-      <svg class="god god-horus" viewBox="0 0 60 100">
-        <!-- Head with falcon crown -->
-        <circle cx="30" cy="15" r="8"/>
-        <polyline points="25,8 30,2 35,8" fill="none"/>
-        <line x1="30" y1="2" x2="30" y2="6"/>
-        <!-- Body -->
-        <line x1="30" y1="23" x2="30" y2="60"/>
-        <!-- Arms raised -->
-        <line x1="30" y1="35" x2="15" y2="25"/>
-        <line x1="30" y1="35" x2="45" y2="25"/>
-        <!-- Legs -->
-        <line x1="30" y1="60" x2="20" y2="90"/>
-        <line x1="30" y1="60" x2="40" y2="90"/>
-      </svg>
+      <!-- sky (for star shimmer on night, purely decorative) -->
+      <rect x="0" y="0" width="1000" height="300" fill="url(#skyGrad)" />
 
-      <!-- Ra with sun disk crown -->
-      <svg class="god god-ra" viewBox="0 0 60 100">
-        <!-- Head with sun disk -->
-        <circle cx="30" cy="15" r="8"/>
-        <circle cx="30" cy="5" r="6" fill="none"/>
-        <!-- Body -->
-        <line x1="30" y1="23" x2="30" y2="60"/>
-        <!-- Arms -->
-        <line x1="30" y1="35" x2="18" y2="40"/>
-        <line x1="30" y1="35" x2="42" y2="40"/>
-        <!-- Legs -->
-        <line x1="30" y1="60" x2="22" y2="90"/>
-        <line x1="30" y1="60" x2="38" y2="90"/>
-      </svg>
+      <!-- stars -->
+      <g fill="#fff" opacity="0.8">
+        <circle class="star" cx="120" cy="70" r="1.5" />
+        <circle class="star" cx="280" cy="50" r="1" />
+        <circle class="star" cx="460" cy="90" r="1.3" />
+        <circle class="star" cx="740" cy="60" r="1.2" />
+        <circle class="star" cx="900" cy="85" r="1.1" />
+      </g>
 
-      <!-- Scepter holder with was staff -->
-      <svg class="god god-scepter" viewBox="0 0 60 100">
-        <!-- Head with striped crown -->
-        <circle cx="30" cy="15" r="8"/>
-        <rect x="24" y="4" width="12" height="8" fill="none"/>
-        <line x1="24" y1="7" x2="36" y2="7"/>
-        <!-- Body -->
-        <line x1="30" y1="23" x2="30" y2="60"/>
-        <!-- Arms - one holding staff -->
-        <line x1="30" y1="35" x2="20" y2="35"/>
-        <line x1="20" y1="25" x2="20" y2="70"/>
-        <line x1="30" y1="35" x2="40" y2="45"/>
-        <!-- Legs -->
-        <line x1="30" y1="60" x2="25" y2="90"/>
-        <line x1="30" y1="60" x2="35" y2="90"/>
-      </svg>
+      <!-- sand -->
+      <rect x="0" y="300" width="1000" height="300" fill="url(#sandGrad)" />
+      <!-- gentle dunes -->
+      <path d="M0 360 C180 330, 300 380, 470 350 C650 320, 800 370, 1000 340 L1000 600 L0 600 Z" fill="#e9c965" opacity="0.9"/>
+
+      <!-- pyramid (simple two-face look) -->
+      <polygon points="500,190 350,450 650,450" fill="url(#pyrFace)" stroke="#a37a2e" stroke-width="2"/>
+      <polygon points="500,190 500,450 650,450" fill="#b18736" opacity="0.85"/>
+
+      <!-- simple doorway -->
+      <rect x="495" y="380" width="30" height="70" fill="#3a2a12" rx="3"/>
+
+      <!-- stick-figure Egyptian gods (minimalist) -->
+      <!-- Left: Anubis (jackal head) -->
+      <g transform="translate(290,455) scale(1.2)">
+        <!-- staff -->
+        <line x1="-20" y1="-60" x2="-20" y2="0" stroke="#111" stroke-width="3"/>
+        <!-- body -->
+        <circle cx="0" cy="-80" r="8" fill="#111"/>
+        <line x1="0" y1="-72" x2="0" y2="-30" stroke="#111" stroke-width="3"/>
+        <line x1="0" y1="-54" x2="-14" y2="-40" stroke="#111" stroke-width="3"/>
+        <line x1="0" y1="-54" x2="14" y2="-40" stroke="#111" stroke-width="3"/>
+        <line x1="0" y1="-30" x2="-12" y2="-10" stroke="#111" stroke-width="3"/>
+        <line x1="0" y1="-30" x2="12" y2="-10" stroke="#111" stroke-width="3"/>
+        <!-- jackal head -->
+        <polygon points="0,-88 14,-92 10,-76" fill="#111"/>
+        <polygon points="8,-98 14,-92 0,-88" fill="#111"/>
+      </g>
+
+      <!-- Right: Horus (falcon hint) -->
+      <g transform="translate(710,455) scale(1.2)">
+        <line x1="20" y1="-60" x2="20" y2="0" stroke="#111" stroke-width="3"/>
+        <circle cx="0" cy="-80" r="8" fill="#111"/>
+        <line x1="0" y1="-72" x2="0" y2="-30" stroke="#111" stroke-width="3"/>
+        <line x1="0" y1="-54" x2="-14" y2="-40" stroke="#111" stroke-width="3"/>
+        <line x1="0" y1="-54" x2="14" y2="-40" stroke="#111" stroke-width="3"/>
+        <line x1="0" y1="-30" x2="-12" y2="-10" stroke="#111" stroke-width="3"/>
+        <line x1="0" y1="-30" x2="12" y2="-10" stroke="#111" stroke-width="3"/>
+        <!-- beak-ish -->
+        <polygon points="0,-86 14,-82 0,-78" fill="#111"/>
+      </g>
+
+      <!-- Center front: Isis (staff + crown hint) -->
+      <g transform="translate(420,475)">
+        <line x1="-16" y1="-70" x2="-16" y2="-5" stroke="#111" stroke-width="3"/>
+        <circle cx="0" cy="-86" r="8" fill="#111"/>
+        <line x1="0" y1="-78" x2="0" y2="-36" stroke="#111" stroke-width="3"/>
+        <line x1="0" y1="-58" x2="-14" y2="-44" stroke="#111" stroke-width="3"/>
+        <line x1="0" y1="-58" x2="14" y2="-44" stroke="#111" stroke-width="3"/>
+        <line x1="0" y1="-36" x2="-12" y2="-10" stroke="#111" stroke-width="3"/>
+        <line x1="0" y1="-36" x2="12" y2="-10" stroke="#111" stroke-width="3"/>
+        <!-- crown hint -->
+        <circle cx="0" cy="-98" r="6" fill="#111"/>
+      </g>
+
+      <!-- UFO + beam -->
+      <g id="ufo" transform="translate(770,120)">
+        <!-- beam -->
+        <polygon points="30,40 70,40 100,220 0,220" fill="url(#beamGrad)" />
+        <!-- saucer -->
+        <ellipse cx="50" cy="38" rx="45" ry="12" fill="#9aa2ad" stroke="#7b8490" stroke-width="2" />
+        <ellipse cx="50" cy="30" rx="22" ry="10" fill="#c8d0da" stroke="#8f98a6" stroke-width="2" />
+        <!-- lights -->
+        <g>
+          <circle cx="15" cy="38" r="3" fill="#ffd54a"/>
+          <circle cx="35" cy="38" r="3" fill="#ffd54a"/>
+          <circle cx="50" cy="38" r="3" fill="#ffd54a"/>
+          <circle cx="65" cy="38" r="3" fill="#ffd54a"/>
+          <circle cx="85" cy="38" r="3" fill="#ffd54a"/>
+        </g>
+      </g>
+
+    </svg>
+
+    <!-- Title text on top -->
+    <div class="title">
+      <h1>THE PYRAMID</h1>
     </div>
-
-    <!-- Pyramid -->
-    <div class="pyramid-container">
-      <div class="pyramid-left"></div>
-      <div class="pyramid-right"></div>
-      <div class="pyramid-ridge"></div>
-      <div class="pyramid-cap"></div>
-      <div class="pyramid-entrance"></div>
-    </div>
-
-    <!-- Title with ripple effect -->
-    <h1 class="title" id="title"><span>T</span><span>H</span><span>E</span><span>P</span><span>Y</span><span>R</span><span>A</span><span>M</span><span>I</span><span>D</span></h1>
-
-    <!-- Bottom Hieroglyphics Border -->
-    <div class="hieroglyphics bottom" id="hieroglyphicsBottom"></div>
   </div>
-
-  <button class="control" id="controlBtn">DAY</button>
-
-  <script src="script.js"></script>
 </body>
 </html>
