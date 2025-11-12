@@ -1,0 +1,23 @@
+body {
+  background-color: #ffe600;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-content {
+  text-align: center;
+  width: 100%;
+}
+
+h1 {
+  font-family: 'UnifrakturCook', serif;
+  font-size: 4rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-style: normal;
+}
